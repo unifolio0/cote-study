@@ -20,12 +20,13 @@ def dfs(v):
 def bfs(v):
     Q = []
     Q.append(v)
+    visit[v] = 1
     while Q:
         vis = Q.pop(0)
         for i in graph[vis]:
-            if visit[i] == 0 and i not in Q:
+            if visit[i] == 0:
                 Q.append(i)
-        visit[vis] = 1
+                visit[i] = 1
         print(vis, end=" ")
 
 dfs(V)
