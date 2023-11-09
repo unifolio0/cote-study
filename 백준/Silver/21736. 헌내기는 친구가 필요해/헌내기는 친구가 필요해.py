@@ -8,12 +8,6 @@ for i in range(N):
     campus.append(list(input()))
 for i in range(N):
     for j in range(M):
-        if campus[i][j] == 'O':
-            campus[i][j] = 0
-        if campus[i][j] == 'P':
-            campus[i][j] = 1
-        if campus[i][j] == 'X':
-            campus[i][j] = -1
         if campus[i][j] == 'I':
             x, y = i, j
             campus[i][j] = 0
@@ -28,10 +22,10 @@ while q:
     for i in range(4):
         nx = x + dx[i]
         ny = y + dy[i]
-        if 0 <= nx < N and 0 <= ny < M and campus[nx][ny] != -1 and visit[nx][ny] == 0:
+        if 0 <= nx < N and 0 <= ny < M and campus[nx][ny] != 'X' and visit[nx][ny] == 0:
             visit[nx][ny] = 1
             q.append((nx, ny))
-            if campus[nx][ny] == 1:
+            if campus[nx][ny] == 'P':
                 count += 1
 if count == 0:
     print("TT")
