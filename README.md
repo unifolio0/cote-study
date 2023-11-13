@@ -1,7 +1,7 @@
 ## baekjoon_study
 This is a auto push repository for Baekjoon Online Judge created with [BaekjoonHub](https://github.com/BaekjoonHub/BaekjoonHub).
 
-기록 정리(Notion) : https://languid-falcon-756.notion.site/1-7f9074f60f194ac6895ab2e72826b644?pvs=4
+기록 정리(Notion) : https://unifolio0.notion.site/1-7f9074f60f194ac6895ab2e72826b644?pvs=4
 
 ## AC RATING 기록
 ### 2023/11/12
