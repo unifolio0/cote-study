@@ -3,11 +3,17 @@ fastinput = sys.stdin.readline
 N = int(fastinput())
 M = int(fastinput())
 S = list(input())
-str = "I"
-for i in range(N):
-    str += "OI"
 count = 0
-for i in range(len(S)-(N*2)):
-    if S[i:i+(N*2+1)] == list(str):
-        count += 1
+i = 0
+co = 0
+while i < len(S)-2:
+    if S[i:i+3] == list("IOI"):
+        i += 2
+        co += 1
+        if co == N:
+            count += 1
+            co -= 1
+    else:
+        i += 1
+        co = 0
 print(count)
