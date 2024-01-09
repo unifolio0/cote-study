@@ -1,26 +1,36 @@
+import sys
 from collections import deque
-from sys import stdin
-input = stdin.readline
+fastInput = sys.stdin.readline
+T = int(fastInput())
 
-def BFS(A, B) :
-    visited = ['-'] * 10000
-    queue = deque([A])
-    visited[A] = ''
-    while queue :
-        val = queue.popleft()
-        next_val = [
-            (val * 2) % 10000,
-            [val - 1, 9999][val == 0],
-            (val % 1000) * 10 + val // 1000,
-            (val % 10) * 1000 + val // 10
-        ]
-        for idx in range(4) :
-            if next_val[idx] == B : return visited[val] + 'DSLR'[idx]
-            if visited[next_val[idx]] == '-' :
-                visited[next_val[idx]] = visited[val] + 'DSLR'[idx]
-                queue.append(next_val[idx])
-
-if __name__ == "__main__" :
-    for _ in range(int(input())) :
-        A, B = map(int, input().split())
-        print(BFS(A, B))
+def bfs():
+    A, B = map(int, fastInput().rsplit())
+    visited[A] = ""
+    q.append(A)
+    while q:
+        y = q.popleft()
+        if y == B:
+            print(visited[y])
+            return
+        d = (y * 2) % 10000
+        if "-" == visited[d]:
+            visited[d] = visited[y] + 'D'
+            q.append(d)
+        s = y - 1
+        if s < 0:
+            s = 9999
+        if "-" == visited[s]:
+            visited[s] = visited[y] + 'S'
+            q.append(s)
+        l = ((y % 1000) * 10) + (y // 1000)
+        if "-" == visited[l]:
+            visited[l] = visited[y] + 'L'
+            q.append(l)
+        r = (y // 10) + ((y % 10) * 1000)
+        if "-" == visited[r]:
+            visited[r] = visited[y] + 'R'
+            q.append(r)
+for _ in range(T):
+    q = deque()
+    visited = ["-" for i in range(10001)]
+    bfs()
