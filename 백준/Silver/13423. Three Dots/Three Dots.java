@@ -3,8 +3,12 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -15,19 +19,18 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int T = Integer.parseInt(st.nextToken());
         for (int t = 0; t < T; t++) {
-            st = new StringTokenizer(br.readLine());
-            int N = Integer.parseInt(st.nextToken());
+            int N = Integer.parseInt(br.readLine());
             st = new StringTokenizer(br.readLine(), " ");
-            int[] X = new int[N];
-            boolean[] x = new boolean[200000001];
+            Map<Integer, Boolean> X = new HashMap<>();
             for (int i = 0; i < N; i++) {
-                X[i] = Integer.parseInt(st.nextToken());
-                x[X[i] + 100000000] = true;
+                X.put(Integer.parseInt(st.nextToken()), true);
             }
             int c = 0;
+            List<Integer> list = X.keySet().stream().collect(Collectors.toList());
             for (int i = 0; i < N - 1; i++) {
                 for (int j = i + 1; j < N; j++) {
-                    if ((X[j] + X[i]) % 2 == 0 && x[((X[j] + X[i]) / 2) + 100000000]) {
+                    int a = list.get(i) + list.get(j);
+                    if (a % 2 == 0 && X.containsKey(a / 2)) {
                         c++;
                     }
                 }
