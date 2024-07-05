@@ -3,43 +3,45 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
-import java.util.StringTokenizer;
 
 public class Main {
+    public static void main(String[] args) throws NumberFormatException, IOException {
+        new Main().solution();
+    }
 
-    public static void main(String[] args) throws IOException {
+    private void solution() throws NumberFormatException, IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int[] a = new int[N];
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < N; i++) {
-            a[i] = Integer.parseInt(st.nextToken());
+        int count = Integer.parseInt(br.readLine());
+        String[] input = br.readLine().split(" ");
+        long[] array = new long[count];
+        long sum = 0;
+        for (int i = 0; i < input.length; i++) {
+            array[i] = Integer.parseInt(input[i]);
+            sum += array[i];
         }
-        int avg = Arrays.stream(a).sum() / N;
-        int count = 0;
-        for (int i = 0; i < N; i++) {
-            while (a[i] != avg) {
-                if (a[i] > avg) {
-                    count++;
-                    a[i]--;
-                    a[i + 1]++;
-                }
-                if (a[i] < avg) {
-                    count++;
-                    a[i]++;
-                    a[i + 1]--;
-                }
+
+        sum /= count;
+
+        long result = 0;
+        for (int i = 0; i < array.length; i++) {
+            long nubmer = 0;
+            if (array[i] < sum) {
+                nubmer = sum - array[i];
+                array[i + 1] = array[i + 1] - nubmer;
+                array[i] += nubmer;
+            } else if (array[i] > sum) {
+                nubmer = array[i] - sum;
+                array[i] = array[i] - nubmer;
+                array[i + 1] = array[i + 1] + nubmer;
             }
+            result += nubmer;
         }
-        bw.write(String.valueOf(count));
 
-        br.close();
-
+        bw.write(result + "\n");
         bw.flush();
         bw.close();
+        br.close();
     }
 }
