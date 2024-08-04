@@ -4,7 +4,6 @@ import java.util.stream.Collectors;
 public class Solution {
     public int[] solution(String[] genres, int[] plays) {
         Map<String, Integer> genreCount = new HashMap<>();
-        Set<String> strings1 = genreCount.keySet();
         Map<String, List<int[]>> genrePlayCount = new HashMap<>();
         for (int i = 0; i < genres.length; i++) {
             String genre = genres[i];
