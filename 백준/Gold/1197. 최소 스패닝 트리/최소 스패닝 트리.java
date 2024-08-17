@@ -4,39 +4,32 @@ import java.util.*;
 public class Main {
     static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static int[] parent;
 
     public static void main(String[] args) throws IOException {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int V = Integer.parseInt(st.nextToken());
         int E = Integer.parseInt(st.nextToken());
-        List<Node>[] graph = new List[V + 1];
-        for (int i = 0; i < V + 1; i++) {
-            graph[i] = new ArrayList<>();
-        }
+        PriorityQueue<Edge> priorityQueue = new PriorityQueue<>((n1, n2) -> n1.cost - n2.cost);
         for (int i = 0; i < E; i++) {
             st = new StringTokenizer(br.readLine());
             int A = Integer.parseInt(st.nextToken());
             int B = Integer.parseInt(st.nextToken());
             int C = Integer.parseInt(st.nextToken());
-            graph[A].add(new Node(B, C));
-            graph[B].add(new Node(A, C));
+            priorityQueue.offer(new Edge(A, B, C));
         }
-        boolean[] visit = new boolean[V + 1];
+        parent = new int[V + 1];
+        for (int i = 0; i < V + 1; i++) {
+            parent[i] = i;
+        }
         int cost = 0;
-        PriorityQueue<Node> priorityQueue = new PriorityQueue<>((n1, n2) -> n1.cost - n2.cost);
-        priorityQueue.offer(new Node(1, 0));
-        while (!priorityQueue.isEmpty()) {
-            Node cur = priorityQueue.poll();
-            if (visit[cur.end]) {
+        for (int i = 0; i < E; i++) {
+            Edge cur = priorityQueue.poll();
+            if (isSameParent(cur)) {
                 continue;
             }
-            visit[cur.end] = true;
             cost += cur.cost;
-            for (Node next : graph[cur.end]) {
-                if (!visit[next.end]) {
-                    priorityQueue.add(next);
-                }
-            }
+            unionNode(cur);
         }
 
         bw.write(String.valueOf(cost));
@@ -47,11 +40,33 @@ public class Main {
         bw.close();
     }
 
-    static class Node {
+    private static int findParent(int num) {
+        if (parent[num] == num) {
+            return num;
+        }
+        parent[num] = findParent(parent[num]);
+        return parent[num];
+    }
+
+    private static boolean isSameParent(Edge cur) {
+        return findParent(cur.start) == findParent(cur.end);
+    }
+
+    private static void unionNode(Edge cur) {
+        int start = findParent(cur.start);
+        int end = findParent(cur.end);
+        if (start != end) {
+            parent[end] = start;
+        }
+    }
+
+    static class Edge {
+        int start;
         int end;
         int cost;
 
-        public Node(int end, int cost) {
+        public Edge(int start, int end, int cost) {
+            this.start = start;
             this.end = end;
             this.cost = cost;
         }
