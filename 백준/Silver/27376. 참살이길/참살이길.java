@@ -30,7 +30,6 @@ public class Main {
                 time += ((i2 / sins.get(i).t) % 2) * (sins.get(i).t - (i2 % sins.get(i).t));
             }
             pos = sins.get(i).x;
-//            System.out.println(pos + " " + time);
         }
         time += n - pos;
         bw.write(String.valueOf(time));
