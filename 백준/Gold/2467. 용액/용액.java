@@ -12,34 +12,29 @@ public class Main {
         for (int i = 0; i < N; i++) {
             yongak[i] = Integer.parseInt(st.nextToken());
         }
-        long zero = Long.MAX_VALUE;
-        int f = 0;
-        int g = 0;
-        for (int i = 0; i < N; i++) {
-            int start = 0;
-            int end = N - 1;
-            while (start <= end) {
-                int mid = (start + end) / 2;
-//                System.out.println("i: " + i + ", start: " + start + ", end: " + end + ", mid: " + mid + ", yongak[mid]: " + yongak[mid] + ", zero: " + zero + ", yongak[i]: " + yongak[i]);
-                if (i != mid) {
-                    long up = yongak[i] + yongak[mid];
-                    if (Math.abs(up) < Math.abs(zero)) {
-                        zero = up;
-                        f = Math.min(i, mid);
-                        g = Math.max(i, mid);
-                    }
-                }
-                if (yongak[i] + yongak[mid] == 0) {
-                    break;
-                }
-                if (yongak[i] + yongak[mid] > 0) {
-                    end = mid - 1;
-                } else {
-                    start = mid + 1;
-                }
+        int zero = Integer.MAX_VALUE;
+        int l = 0;
+        int r = 0;
+        int start = 0;
+        int end = N - 1;
+        while (start < end) {
+            if (Math.abs(yongak[start] + yongak[end]) < Math.abs(zero)) {
+                l = start;
+                r = end;
+                zero = yongak[start] + yongak[end];
+            }
+            int sum = yongak[start] + yongak[end];
+            if (sum == 0) {
+                break;
+            }
+            if (sum > 0) {
+                end--;
+            } else {
+                start++;
             }
         }
-        bw.write(yongak[f] + " " + yongak[g]);
+
+        bw.write(yongak[l] + " " + yongak[r]);
 
         br.close();
 
