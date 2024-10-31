@@ -1,54 +1,57 @@
-import java.io.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.TreeMap;
 
 public class Main {
-    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+    static long n, k;
     public static void main(String[] args) throws IOException {
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int k = Integer.parseInt(st.nextToken());
-        List<Sin> sins = new ArrayList<>();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String[] str = bufferedReader.readLine().split(" ");
+
+        n = Integer.parseInt(str[0]);
+        k = Integer.parseInt(str[1]);
+
+        TreeMap<Long, Long[]> pointAndTimes = new TreeMap<>();
         for (int i = 0; i < k; i++) {
-            st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int t = Integer.parseInt(st.nextToken());
-            int s = Integer.parseInt(st.nextToken());
-            sins.add(new Sin(x, t, s));
+            str = bufferedReader.readLine().split(" ");
+            long point = Integer.parseInt(str[0]);
+            long internal = Integer.parseInt(str[1]);
+            long initTime = Integer.parseInt(str[2]);
+
+            pointAndTimes.put(point, new Long[]{internal, initTime});
         }
-        sins.sort((s1, s2) -> s1.x - s2.x);
-        long time = 0;
-        int pos = 0;
-        for (int i = 0; i < k; i++) {
-            time += sins.get(i).x - pos;
-            if (sins.get(i).s > time) {
-                time += sins.get(i).s - time;
-            } else {
-                long i2 = time - sins.get(i).s;
-                time += ((i2 / sins.get(i).t) % 2) * (sins.get(i).t - (i2 % sins.get(i).t));
+
+        long currentTime = 0;
+        long currentPoint = 0;
+
+        for (long point: pointAndTimes.keySet()) {
+            Long[] internalAndInitTime = pointAndTimes.get(point);
+
+            // 1. 현재 거리까지 이동 시간
+            currentTime += point - currentPoint;
+
+            // 2. 새로운 지점에서 이동 가능한 시간까지 대기
+            long intialT = internalAndInitTime[1];
+            if (currentTime < intialT) {
+                currentTime += (intialT - currentTime);
+                currentPoint = point;
+                continue;
             }
-            pos = sins.get(i).x;
+
+            // 3. 새로운 지점에서 신호등 바뀌기 전까지 대기
+            long internalTime = currentTime - intialT;
+            long internalT = internalAndInitTime[0];
+            long waiting = internalTime % (2 * internalT);
+            if (waiting >= internalT) {
+                currentTime += 2 * internalT - waiting;
+            }
+
+            currentPoint = point;
         }
-        time += n - pos;
-        bw.write(String.valueOf(time));
 
-        br.close();
-
-        bw.flush();
-        bw.close();
-    }
-
-    static class Sin {
-        int x;
-        int t;
-        int s;
-
-        public Sin(int x, int t, int s) {
-            this.x = x;
-            this.t = t;
-            this.s = s;
-        }
+        currentTime += (n - currentPoint);
+        System.out.println(currentTime);
     }
 }
