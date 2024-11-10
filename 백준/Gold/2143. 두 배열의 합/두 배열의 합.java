@@ -11,8 +11,8 @@ public class Main {
     static int[] B;
     static int aSize;
     static int bSize;
-    static long[] aSum;
-    static long[] bSum;
+    static int[] aSum;
+    static int[] bSum;
 
     public static void main(String[] args) throws IOException {
         T = Integer.parseInt(br.readLine());
@@ -29,9 +29,9 @@ public class Main {
             B[i] = Integer.parseInt(st.nextToken());
         }
         aSize = n * (n + 1) / 2;
-        aSum = new long[aSize];
+        aSum = new int[aSize];
         bSize = m * (m + 1) / 2;
-        bSum = new long[bSize];
+        bSum = new int[bSize];
         int idx = 0;
         for (int i = 0; i < n; i++) {
             int av = 0;
@@ -53,7 +53,7 @@ public class Main {
 
         long ans = 0;
         for (int i = 0; i < aSize; i++) {
-            long target = T - aSum[i];
+            int target = T - aSum[i];
             int l = -1;
             int r = bSize;
             while (l + 1 < r) {
