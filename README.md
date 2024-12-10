@@ -13,15 +13,3 @@ This is a auto push repository for Baekjoon Online Judge created with [BaekjoonH
 
 ### 2024/08/17
 ![image](https://github.com/user-attachments/assets/435bd01c-087d-4f35-a3bf-c8c41238068e)
-
-<!---LeetCode Topics Start-->
-# LeetCode Topics
-## Array
-|  |
-| ------- |
-| [0001-two-sum](https://github.com/unifolio0/cote_study/tree/master/0001-two-sum) |
-## Hash Table
-|  |
-| ------- |
-| [0001-two-sum](https://github.com/unifolio0/cote_study/tree/master/0001-two-sum) |
-<!---LeetCode Topics End-->
