@@ -6,19 +6,10 @@ SELECT
 FROM
     DEVELOPERS
 WHERE
-    (SELECT
-        SKILLCODES.CODE
-    FROM
-        SKILLCODES
-    WHERE
-        NAME = 'Python'
-    ) & SKILL_CODE > 0
-    OR (SELECT
-        SKILLCODES.CODE
-    FROM
-        SKILLCODES
-    WHERE
-        NAME = 'C#'
-    ) & SKILL_CODE > 0
+    SKILL_CODE & (
+        SELECT SUM(CODE) 
+        FROM SKILLCODES 
+        WHERE NAME IN ('Python', 'C#')
+    ) > 0
 ORDER BY
     ID ASC;
