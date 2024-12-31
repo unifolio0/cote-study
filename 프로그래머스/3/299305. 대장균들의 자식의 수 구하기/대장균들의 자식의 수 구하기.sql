@@ -1,11 +1,3 @@
-WITH CHILD_COUNT AS (
-    SELECT
-        ID,
-        CHILD_COUNT
-    FROM
-        ECOLI_DATA
-    
-)
 SELECT
     ID,
     (SELECT
