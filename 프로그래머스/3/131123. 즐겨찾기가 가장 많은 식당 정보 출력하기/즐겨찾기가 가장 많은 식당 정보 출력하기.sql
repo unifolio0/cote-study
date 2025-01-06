@@ -1,12 +1,3 @@
-WITH MAX_FAVO AS (
-    SELECT
-        FOOD_TYPE,
-        MAX(FAVORITES) AS MF
-    FROM
-        REST_INFO   
-    GROUP BY
-        FOOD_TYPE
-)
 SELECT
     FOOD_TYPE,
     REST_ID,
@@ -15,13 +6,14 @@ SELECT
 FROM
     REST_INFO
 WHERE
-    (
+    (FOOD_TYPE, FAVORITES) IN (
         SELECT
-            MF
+            FOOD_TYPE,
+            MAX(FAVORITES)
         FROM
-            MAX_FAVO
-        WHERE
-            MAX_FAVO.FOOD_TYPE = REST_INFO.FOOD_TYPE
-    ) = FAVORITES
+            REST_INFO
+        GROUP BY
+            FOOD_TYPE
+    )
 ORDER BY
     FOOD_TYPE DESC;
