@@ -1,0 +1,27 @@
+WITH MAX_FAVO AS (
+    SELECT
+        FOOD_TYPE,
+        MAX(FAVORITES) AS MF
+    FROM
+        REST_INFO   
+    GROUP BY
+        FOOD_TYPE
+)
+SELECT
+    FOOD_TYPE,
+    REST_ID,
+    REST_NAME,
+    FAVORITES
+FROM
+    REST_INFO
+WHERE
+    (
+        SELECT
+            MF
+        FROM
+            MAX_FAVO
+        WHERE
+            MAX_FAVO.FOOD_TYPE = REST_INFO.FOOD_TYPE
+    ) = FAVORITES
+ORDER BY
+    FOOD_TYPE DESC;
