@@ -1,24 +1,11 @@
 SELECT
     DISTINCT CART_ID
 FROM
-    CART_PRODUCTS O
+    CART_PRODUCTS
 WHERE
-    (
-        SELECT
-            COUNT(*)
-        FROM
-            CART_PRODUCTS I
-        WHERE
-            O.CART_ID = I.CART_ID
-            AND I.NAME = 'Milk'
-    ) > 0
-    AND (
-        SELECT
-            COUNT(*)
-        FROM
-            CART_PRODUCTS I
-        WHERE
-            O.CART_ID = I.CART_ID
-            AND I.NAME = 'Yogurt'
-    ) > 0
+    NAME IN ('Milk', 'Yogurt')
+GROUP BY
+    CART_ID
+HAVING
+    COUNT(DISTINCT NAME) = 2
 ;
