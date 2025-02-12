@@ -3,3 +3,4 @@ SELECT
     NAME
 FROM
     ANIMAL_INS
+;
