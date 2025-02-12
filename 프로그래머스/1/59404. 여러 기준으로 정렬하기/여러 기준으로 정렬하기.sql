@@ -7,3 +7,4 @@ FROM
 ORDER BY
     NAME ASC,
     DATETIME DESC
+;
