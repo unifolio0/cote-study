@@ -7,5 +7,4 @@ SELECT
     END AS 중성화
 FROM
     ANIMAL_INS
-ORDER BY
-    ANIMAL_ID ASC;
+;
