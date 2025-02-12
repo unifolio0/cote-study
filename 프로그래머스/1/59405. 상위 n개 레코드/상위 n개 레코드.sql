@@ -6,3 +6,4 @@ ORDER BY
     DATETIME
 LIMIT
     1
+;
