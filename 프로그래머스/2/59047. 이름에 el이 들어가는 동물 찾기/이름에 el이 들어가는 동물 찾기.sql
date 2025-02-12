@@ -7,4 +7,5 @@ WHERE
     NAME LIKE '%el%'
     AND ANIMAL_TYPE = 'Dog'
 ORDER BY
-    NAME ASC;
+    NAME ASC
+;
