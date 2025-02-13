@@ -1,12 +1,14 @@
-SELECT 
+SELECT
     DR_NAME,
     DR_ID,
     MCDP_CD,
-    DATE_FORMAT(HIRE_YMD, '%Y-%m-%d') AS HIRE_YMD
+    DATE_FORMAT(HIRE_YMD, '%Y-%m-%d') AS HIRe_YMD
 FROM
     DOCTOR
 WHERE
-    MCDP_CD IN ('CS', 'GS')
+    MCDP_CD = 'CS'
+    OR MCDP_CD = 'GS'
 ORDER BY
     HIRE_YMD DESC,
-    DR_NAME ASC;
+    DR_NAME ASC
+;
