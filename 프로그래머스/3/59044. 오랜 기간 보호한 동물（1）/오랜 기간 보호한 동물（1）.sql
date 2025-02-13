@@ -12,4 +12,5 @@ WHERE
 ORDER BY
     I.DATETIME ASC
 LIMIT
-    3;
+    3
+;
