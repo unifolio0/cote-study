@@ -1,11 +1,13 @@
 SELECT
     ANIMAL_TYPE,
-    COUNT(*) AS count
-FROM    
+    COUNT(ANIMAL_ID) AS 'count'
+FROM
     ANIMAL_INS
 WHERE
-    ANIMAL_TYPE IN ('Cat', 'Dog')
+    ANIMAL_TYPE = 'Dog'
+    OR ANIMAL_TYPE = 'Cat'
 GROUP BY
     ANIMAL_TYPE
 ORDER BY
-    ANIMAL_TYPE ASC;
+    ANIMAL_TYPE ASC
+;
