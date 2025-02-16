@@ -3,18 +3,17 @@ SELECT
     PRICE AS MAX_PRICE,
     PRODUCT_NAME
 FROM
-    FOOD_PRODUCT FP
+    FOOD_PRODUCT
 WHERE
-    (CATEGORY, PRICE) IN (
+    CATEGORY IN ('과자', '국', '김치', '식용유')
+    AND (CATEGORY, PRICE) IN (
         SELECT
             CATEGORY,
-            MAX(PRICE) AS MP
-        FROM    
+            MAX(PRICE) AS PRICE
+        FROM
             FOOD_PRODUCT
         GROUP BY
             CATEGORY
-        HAVING
-            CATEGORY IN ('과자', '국', '김치', '식용유')
     )
 ORDER BY
     MAX_PRICE DESC
