@@ -1,29 +1,23 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    static int T;
-    static long[] d;
+    static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
-        T = Integer.parseInt(br.readLine());
-        d = new long[T + 1];
-        bw.write(f(T) + "\n");
-
-        br.close();
+        int N = Integer.parseInt(br.readLine());
+        int[] dp = new int[1_001];
+        dp[1] = 1;
+        dp[2] = 2;
+        for (int i = 3; i <= N; i++) {
+            dp[i] = (dp[i - 2] + dp[i - 1]) % 10_007;
+        }
+        bw.write(String.valueOf(dp[N]));
 
         bw.flush();
-        bw.close();
-    }
 
-    private static long f(int n) {
-        if (n < 1) return 0;
-        if (n == 1) return 1;
-        if (n == 2) return 2;
-        if (d[n] != 0) return d[n];
-        d[n] = ((f(n - 1) % 10_007) + (f(n - 2) % 10_007)) % 10_007;
-        return d[n];
+        bw.close();
+        br.close();
     }
 }
