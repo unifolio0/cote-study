@@ -16,4 +16,5 @@ WHERE
             FOOD_TYPE
     )
 ORDER BY
-    FOOD_TYPE DESC;
+    FOOD_TYPE DESC
+;
