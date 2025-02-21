@@ -7,6 +7,7 @@ FROM
 WHERE
     LOCATION2 = '수원'
 GROUP BY
-    YEAR
+    YEAR(YM)
 ORDER BY
-    YEAR ASC;
+    YEAR ASC
+;
