@@ -7,9 +7,13 @@ FROM
     DEVELOPERS
 WHERE
     SKILL_CODE & (
-        SELECT SUM(CODE) 
-        FROM SKILLCODES 
-        WHERE NAME IN ('Python', 'C#')
-    ) > 0
+        SELECT
+            SUM(CODE)
+        FROM
+            SKILLCODES
+        WHERE
+            NAME IN ('Python', 'C#')
+    )
 ORDER BY
-    ID ASC;
+    ID ASC
+;
